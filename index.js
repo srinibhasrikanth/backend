@@ -4,8 +4,7 @@ const dotenv = require("dotenv");
 const morgan = require("morgan");
 const cors = require("cors");
 const connectDB = require("./config/db.js");
-const { getAllEvents } = require("./controller/eventController.js");
-const eventModel = require("./model/eventModel.js");
+
 //dotenv config
 dotenv.config();
 
@@ -17,15 +16,27 @@ connectDB();
 
 //middlewares
 app.use(cors());
-// app.use(morgan());
+app.use(morgan());
 app.use(express.json());
 
 //routes
 app.get("/api/v1/events", (req, res) => {
-  res.json("Hello welcome to my world");
+  res.send("Hello welcome to my world");
 });
 
-app.use("/api/v1/events/get-all-events", getAllEvents);
+app.use("/api/v1/events/get-all-events", async (req, res) => {
+  try {
+    const events = await eventModel.find({});
+    res.status(200).json(events);
+  } catch (error) {
+    console.error("Error fetching events:", error);
+    res.status(500).json({
+      success: false,
+      message: "Error fetching events",
+      error: error.message,
+    });
+  }
+});
 
 app.use("/api/v1/auth", require("./route/authRoute.js"));
 
