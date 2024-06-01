@@ -18,7 +18,7 @@ connectDB();
 //middlewares
 app.use(
   cors({
-    origin: ["https://backend-xmta.vercel.app"],
+    origin: [""],
     methods: ["POST", "GET"],
     credentials: true,
   })
