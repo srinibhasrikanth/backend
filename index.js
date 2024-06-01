@@ -5,7 +5,7 @@ const morgan = require("morgan");
 const cors = require("cors");
 const connectDB = require("./config/db.js");
 const { getAllEvents } = require("./controller/eventController.js");
-
+const eventModel=require('./model/eventModel.js')
 //dotenv config
 dotenv.config();
 
