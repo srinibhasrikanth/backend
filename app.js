@@ -23,7 +23,7 @@ app.use(
     credentials: true,
   })
 );
-app.use(morgan());
+
 app.use(express.json());
 
 //routes
@@ -38,7 +38,7 @@ app.use("/api/v1/auth", require("./route/authRoute.js"));
 //PORT number
 const PORT = process.env.PORT || 8080;
 
-//Listening the PORT
+// //Listening the PORT
 app.listen(PORT, () => {
   console.log(`Server is running ${PORT}`);
 });
