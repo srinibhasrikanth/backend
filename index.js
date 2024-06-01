@@ -18,7 +18,7 @@ connectDB();
 //middlewares
 app.use(
   cors({
-    origin: ["https://backend-xmta.vercel.app/"],
+    origin: ["https://backend-xmta.vercel.app"],
     methods: ["POST", "GET"],
     credentials: true,
   })
@@ -31,19 +31,7 @@ app.get("/api/v1/events", (req, res) => {
   res.send("Hello welcome to my world");
 });
 
-app.use("/api/v1/events/get-all-events", async (req, res) => {
-  try {
-    const events = await eventModel.find({});
-    res.status(200).json(events);
-  } catch (error) {
-    console.error("Error fetching events:", error);
-    res.status(500).json({
-      success: false,
-      message: "Error fetching events",
-      error: error.message,
-    });
-  }
-});
+app.use("/api/v1/events", require("./route/eventRoute.js"));
 
 app.use("/api/v1/auth", require("./route/authRoute.js"));
 
