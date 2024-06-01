@@ -16,7 +16,13 @@ const app = express();
 connectDB();
 
 //middlewares
-app.use(cors());
+app.use(
+  cors({
+    origin: ["https://backend-xmta.vercel.app/"],
+    methods: ["POST", "GET"],
+    credentials: true,
+  })
+);
 app.use(morgan());
 app.use(express.json());
 
