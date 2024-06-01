@@ -22,7 +22,7 @@ app.use(express.json());
 
 //routes
 app.get("/api/v1/events", (req, res) => {
-  res.send("Hello welcome to my world");
+  res.json("Hello welcome to my world");
 });
 
 app.use("/api/v1/events/get-all-events", async (req, res) => {
