@@ -37,6 +37,9 @@ app.use("/api/v1/auth", require("./route/authRoute.js"));
 
 app.use("/api/v1/members", require("./route/memberRoute.js"));
 
+app.use("/api/v1/core", require("./route/coreRoute.js"));
+app.use("/api/v1/volunteer", require("./route/volunteerRoute.js"));
+
 //PORT number
 const PORT = process.env.PORT || 8080;
 

@@ -24,5 +24,5 @@ const volunteerSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const volunteerModel = new mongoose.model("core", volunteerSchema);
+const volunteerModel = new mongoose.model("volunteer", volunteerSchema);
 module.exports = volunteerModel;
