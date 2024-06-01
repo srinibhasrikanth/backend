@@ -23,6 +23,9 @@ const coreSchema = new mongoose.Schema(
     section: {
       type: String,
     },
+    batch: {
+      type: String,
+    },
   },
   { timestamps: true }
 );
