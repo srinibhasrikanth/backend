@@ -8,19 +8,13 @@ const volunteerSchema = new mongoose.Schema(
     studentName: {
       type: String,
     },
-    acmMembershipId: {
-      type: String,
-    },
-    position: {
-      type: String,
-    },
-    email: {
+    domain: {
       type: String,
     },
     phoneNumber: {
       type: String,
     },
-    section: {
+    email: {
       type: String,
     },
     batch: {

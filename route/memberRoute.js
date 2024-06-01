@@ -1,15 +1,7 @@
 const express = require("express");
-const {
-  saveCore,
-  saveVolunteer,
-  saveMember,
-} = require("../controller/memberController");
+const { saveMember, getMember } = require("../controller/memberController");
 
 const router = express.Router();
-
-router.post("/add-core", saveCore);
-
-router.post("/add-volunteer", saveVolunteer);
-
+router.get("/get-membership", getMember);
 router.post("/add-membership", saveMember);
 module.exports = router;
