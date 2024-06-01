@@ -21,7 +21,7 @@ app.use(cors());
 app.use(express.json());
 
 //routes
-app.get("/", (req, res) => {
+app.get("/api/v1/events", (req, res) => {
   res.send("Hello welcome to my world");
 });
 
