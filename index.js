@@ -27,7 +27,7 @@ app.use(morgan());
 app.use(express.json());
 
 //routes
-app.get("/api/v1/events", (req, res) => {
+app.get("/", (req, res) => {
   res.send("Hello welcome to my world");
 });
 
