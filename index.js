@@ -23,8 +23,6 @@ app.get("/", (req, res) => {
   res.send("Hello welcome to my world");
 });
 
-
-
 //PORT number
 const PORT = process.env.PORT || 8080;
 
