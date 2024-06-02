@@ -75,6 +75,7 @@ app.use("/api/v1/members", require("./route/memberRoute.js"));
 app.use("/api/v1/core", require("./route/coreRoute.js"));
 app.use("/api/v1/volunteer", require("./route/volunteerRoute.js"));
 
+// Multer storage configuration
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "uploads/");
@@ -86,10 +87,10 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-// Serve static files
+// Serve static files from the 'uploads' directory
 app.use("/uploads", express.static("uploads"));
 
-// Endpoint for file upload
+// Endpoint to handle file upload
 app.post("/api/upload-poster", upload.single("poster"), (req, res) => {
   if (!req.file) {
     return res.status(400).send("No file uploaded.");
