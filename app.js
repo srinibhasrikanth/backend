@@ -1,16 +1,18 @@
 const express = require("express");
 const dotenv = require("dotenv");
-
+const multer = require("multer");
 const morgan = require("morgan");
 const cors = require("cors");
 const connectDB = require("./config/db.js");
 const eventModel = require("./model/eventModel.js");
+const nodemailer = require("nodemailer");
 
 //dotenv config
 dotenv.config();
 
 //rest app
 const app = express();
+const upload = multer({ dest: "uploads/" });
 
 //database config
 connectDB();
@@ -18,13 +20,45 @@ connectDB();
 //middlewares
 app.use(
   cors({
-    origin: ["https://frontend-woad-xi.vercel.app"],
+    //   origin: ["https://frontend-woad-xi.vercel.app"],
     methods: ["POST", "GET"],
     credentials: true,
   })
 );
-
 app.use(express.json());
+
+app.post("/send-emails", async (req, res) => {
+  try {
+    const { subject, body, emailList } = req.body;
+
+    if (!subject || !body || !emailList) {
+      return res.status(400).send("Missing required fields");
+    }
+
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "srinibha.srikanth@gmail.com",
+        pass: process.env.PASS,
+      },
+    });
+
+    const mailOptions = {
+      from: "srinibha.srikanth@gmail.com",
+      subject: subject,
+      text: body,
+    };
+
+    for (const row of emailList) {
+      await transporter.sendMail({ ...mailOptions, to: row.email });
+    }
+
+    res.status(200).send("Emails sent successfully.");
+  } catch (error) {
+    console.error("Error sending emails:", error);
+    res.status(500).send("Error sending emails.");
+  }
+});
 
 //routes
 app.get("/", (req, res) => {
