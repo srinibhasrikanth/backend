@@ -20,7 +20,7 @@ connectDB();
 //middlewares
 app.use(
   cors({
-    origin: ["https://frontend-nu-flame-39.vercel.app/"],
+    origin: ["https://frontend-nu-flame-39.vercel.app"],
     methods: ["POST", "GET", "PUT", "DELETE"],
     credentials: true,
   })
