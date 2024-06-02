@@ -61,6 +61,9 @@ const eventSchema = new mongoose.Schema({
   after_event_report: {
     type: String,
   },
+  pr_date: {
+    type: String,
+  },
 });
 
 const eventModel = new mongoose.model("events", eventSchema);
