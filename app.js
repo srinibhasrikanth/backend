@@ -92,11 +92,15 @@ app.use("/uploads", express.static("uploads"));
 
 // Endpoint to handle file upload
 app.post("/api/upload-poster", upload.single("poster"), (req, res) => {
-  res.setHeader("Content-Security-Policy", "upgrade-insecure-requests");
-  if (!req.file) {
-    return res.status(400).send("No file uploaded.");
+  try {
+    if (!req.file) {
+      return res.status(400).send("No file uploaded.");
+    }
+    res.status(200).send({ filePath: `/uploads/${req.file.filename}` });
+  } catch (error) {
+    console.error("Error uploading file:", error);
+    res.status(500).send("Error uploading file.");
   }
-  res.status(200).send({ filePath: `/uploads/${req.file.filename}` });
 });
 
 //PORT number
