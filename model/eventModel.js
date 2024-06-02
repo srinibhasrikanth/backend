@@ -49,7 +49,7 @@ const eventSchema = new mongoose.Schema({
   remarks: {
     type: String,
   },
-  created_date: {
+  current: {
     type: String,
   },
   registration_link: {
