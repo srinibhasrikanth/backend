@@ -1,3 +1,4 @@
+const eventModel = require("../model/eventModel");
 const registerModel = require("../model/registerModel");
 
 const registerStudent = async (req, res) => {
@@ -6,12 +7,12 @@ const registerStudent = async (req, res) => {
     req.body;
 
   try {
-    const event = await Event.findById(id);
+    const event = await eventModel.findById(id);
     if (!event) {
       return res.status(404).send("Event not found");
     }
 
-    const registration = new Registration({
+    const registration = new registerModel({
       studentName,
       rollNumber,
       phoneNumber,
