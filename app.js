@@ -7,12 +7,13 @@ const connectDB = require("./config/db.js");
 const eventModel = require("./model/eventModel.js");
 const nodemailer = require("nodemailer");
 
+const path = require("path");
+
 //dotenv config
 dotenv.config();
 
 //rest app
 const app = express();
-const upload = multer({ dest: "uploads/" });
 
 //database config
 connectDB();
@@ -73,6 +74,28 @@ app.use("/api/v1/members", require("./route/memberRoute.js"));
 
 app.use("/api/v1/core", require("./route/coreRoute.js"));
 app.use("/api/v1/volunteer", require("./route/volunteerRoute.js"));
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "uploads/");
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + path.extname(file.originalname));
+  },
+});
+
+const upload = multer({ storage: storage });
+
+// Serve static files
+app.use("/uploads", express.static("uploads"));
+
+// Endpoint for file upload
+app.post("/api/upload-poster", upload.single("poster"), (req, res) => {
+  if (!req.file) {
+    return res.status(400).send("No file uploaded.");
+  }
+  res.status(200).send({ filePath: `/uploads/${req.file.filename}` });
+});
 
 //PORT number
 const PORT = process.env.PORT || 8080;
