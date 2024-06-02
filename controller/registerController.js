@@ -1,22 +1,31 @@
 const registerModel = require("../model/registerModel");
 
 const registerStudent = async (req, res) => {
+  const { id } = req.body; // The event ID from the request body
+  const { studentName, rollNumber, phoneNumber, email, branch, year, section } =
+    req.body;
+
   try {
-    const eventData = req.body;
-    const newEvent = new registerModel(eventData);
-    const saveEvent = await newEvent.save();
-    res.status(200).json({
-      success: true,
-      message: "Successfully event is created",
-      saveEvent,
+    const event = await Event.findById(id);
+    if (!event) {
+      return res.status(404).send("Event not found");
+    }
+
+    const registration = new Registration({
+      studentName,
+      rollNumber,
+      phoneNumber,
+      email,
+      branch,
+      year,
+      section,
+      eventId: id,
     });
+
+    await registration.save();
+    res.status(201).send(registration);
   } catch (error) {
-    console.log("Error during event creation:", error); // Log the error to the console
-    res.status(403).json({
-      success: false,
-      message: "Something went wrong, creation unsuccessful",
-      error: error.message, // Send the error message in the response
-    });
+    res.status(500).send("Error registering student");
   }
 };
 

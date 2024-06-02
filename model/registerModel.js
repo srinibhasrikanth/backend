@@ -29,7 +29,12 @@ const registerSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  eventId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Event",
+    required: true,
+  },
 });
 
-const registerModel = new mongoose.model("registration", registerSchema);
-module.exports = registerModel;
+const Registration = mongoose.model("Registration", registerSchema);
+module.exports = Registration;
