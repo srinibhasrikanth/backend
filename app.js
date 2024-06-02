@@ -19,16 +19,15 @@ const app = express();
 connectDB();
 
 //middlewares
-// app.use(
-//   cors({
-//     // origin: ["https://frontend-nu-flame-39.vercel.app"],
-//     origin: ["http://localhost:3000"],
-//     methods: ["POST", "GET", "PUT", "DELETE"],
-//     credentials: true,
-//   })
-// );
+app.use(
+  cors({
+    origin: ["https://frontend-nu-flame-39.vercel.app"],
+    methods: ["POST", "GET", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 
-app.use(cors());
+// app.use(cors());
 app.use(express.json());
 
 app.post("/send-emails", async (req, res) => {
