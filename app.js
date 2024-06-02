@@ -20,8 +20,8 @@ connectDB();
 //middlewares
 app.use(
   cors({
-    //   origin: ["https://frontend-woad-xi.vercel.app"],
-    methods: ["POST", "GET"],
+    origin: ["https://frontend-woad-xi.vercel.app"],
+    methods: ["POST", "GET", "PUT", "DELETE"],
     credentials: true,
   })
 );
