@@ -78,6 +78,8 @@ app.use("/api/v1/members", require("./route/memberRoute.js"));
 app.use("/api/v1/core", require("./route/coreRoute.js"));
 app.use("/api/v1/volunteer", require("./route/volunteerRoute.js"));
 
+app.use("/api/v1/register", require("./route/registerRoute.js"));
+
 // Multer storage configuration
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
