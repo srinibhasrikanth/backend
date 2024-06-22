@@ -21,6 +21,35 @@ const createEvent = async (req, res) => {
   }
 };
 
+const createManyEvents = async (req, res) => {
+  try {
+    const eventsData = req.body; // Assuming req.body is an array of event data objects
+
+    // Validate if eventsData is an array
+    if (!Array.isArray(eventsData)) {
+      return res.status(400).json({
+        success: false,
+        message: "Request body should be an array of event data objects",
+      });
+    }
+
+    const savedEvents = await eventModel.insertMany(eventsData);
+
+    res.status(200).json({
+      success: true,
+      message: `${savedEvents.length} events created successfully`,
+      events: savedEvents,
+    });
+  } catch (error) {
+    console.log("Error during bulk event creation:", error);
+    res.status(403).json({
+      success: false,
+      message: "Something went wrong, bulk creation unsuccessful",
+      error: error.message,
+    });
+  }
+};
+
 const updateEvent = async (req, res) => {
   const eventId = req.params.id;
   const eventData = JSON.stringify(req.body.after_event_report);
@@ -124,4 +153,5 @@ module.exports = {
   getAllEvents,
   getEvent,
   getAllApprovedEvents,
+  createManyEvents,
 };

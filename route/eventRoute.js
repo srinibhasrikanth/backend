@@ -6,11 +6,14 @@ const {
   getEvent,
   deleteEvent,
   getAllApprovedEvents,
+  createManyEvents,
 } = require("../controller/eventController");
 
 const router = express.Router();
 
 router.post("/create-event", createEvent);
+
+router.post("/create-many-events", createManyEvents);
 
 router.put("/update-event/:id", updateEvent);
 
