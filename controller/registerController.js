@@ -33,7 +33,7 @@ const registerStudent = async (req, res) => {
 const getStudent = async (req, res) => {
   const { id } = req.params;
   try {
-    const event = await registerModel.findById(id);
+    const event = await registerModel.find({ eventId: id });
 
     if (!event) {
       // If event is not found, return a 404 status
