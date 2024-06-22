@@ -1,6 +1,7 @@
 const eventModel = require("../model/eventModel");
 const registerModel = require("../model/registerModel");
-
+const { ObjectId } = require("mongodb");
+const mongoose = require("mongoose");
 const registerStudent = async (req, res) => {
   const { id } = req.body; // The event ID from the request body
   const { studentName, rollNumber, phoneNumber, email, branch, year, section } =
@@ -32,11 +33,15 @@ const registerStudent = async (req, res) => {
 
 const getStudent = async (req, res) => {
   const { id } = req.params;
-  const ObjectId = new ObjectId(id);
-  try {
-    const event = await registerModel.find({ eventId: ObjectId });
+  console.log(id);
 
-    if (!event) {
+  try {
+    const object = new ObjectId(id); // Convert id string to ObjectId
+    console.log(object);
+
+    const event = await registerModel.find({ eventId: object });
+
+    if (!event || event.length === 0) {
       // If event is not found, return a 404 status
       return res.status(404).json({
         success: false,
