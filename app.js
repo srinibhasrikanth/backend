@@ -63,6 +63,44 @@ app.post("/send-emails", async (req, res) => {
   }
 });
 
+//sending mails to core by the admin
+app.post("/send-email-core", async (req, res) => {
+  try {
+    const emailList = [
+      { email: "srinibha.srikanth@gmail.com" },
+      { email: "siddharthreddy210603@gmail.com" },
+    ];
+    const { subject, body } = req.body;
+
+    if (!subject || !body || !emailList) {
+      return res.status(400).send("Missing required fields");
+    }
+
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "srinibha.srikanth@gmail.com",
+        pass: process.env.PASS,
+      },
+    });
+
+    const mailOptions = {
+      from: "srinibha.srikanth@gmail.com",
+      subject: subject,
+      text: body,
+    };
+
+    for (const row of emailList) {
+      await transporter.sendMail({ ...mailOptions, to: row.email });
+    }
+
+    res.status(200).send("Emails sent successfully.");
+  } catch (error) {
+    console.error("Error sending emails:", error);
+    res.status(500).send("Error sending emails.");
+  }
+});
+
 //routes
 app.get("/", (req, res) => {
   res.send("Hello welcome to my world");
